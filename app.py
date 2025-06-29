@@ -74,7 +74,7 @@ states_data = {
 }
 
 # --- UI ---
-st.set_page_config(page_title="Smart Solar Subsidy Dashboard 🇮🇳")
+st.set_page_config(page_title="Smart Solar Subsidy Dashboard for Reference 🇮🇳")
 st.title("🔆 Smart Solar Subsidy Dashboard")
 st.caption("Includes PM Suryaghar + Top 10 State Schemes")
 st.markdown("---")
