@@ -120,4 +120,5 @@ st.markdown("""
 This dashboard is for **educational purposes only**. 
 Values are indicative. Always verify with your local DISCOM, MNRE, or registered installer.
 Refer: [PM Suryaghar Portal](https://pmsuryaghar.gov.in/#/)
+Built by Ganesh Moorthi
 """)
