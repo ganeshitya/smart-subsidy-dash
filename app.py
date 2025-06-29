@@ -24,7 +24,7 @@ states_data = {
     "Maharashtra": {
         "subsidy": lambda kW: min(kW, 3) * 3000,
         "eligibility": "Only in select districts",
-        "url": "https://www.mahadiscom.in/solar/
+        "url": "https://www.mahadiscom.in/solar/"
     },
     "Karnataka": {
         "subsidy": lambda kW: 10000 if kW <= 3 else 0,
