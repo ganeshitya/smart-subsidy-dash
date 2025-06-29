@@ -1,13 +1,23 @@
 # smart-subsidy-dashboard/app.py
 import streamlit as st
 
-# --- Central PM Suryaghar Slab ---
+# --- Central PM Suryaghar Subsidy Logic ---
 def central_subsidy(kW):
     if kW <= 2:
-        return 18000 * kW
+        return 30000 * kW
     elif kW <= 3:
-        return 18000 * 2 + 9000 * (kW - 2)
-    return 0
+        return 30000 * 2 + 18000 * (kW - 2)
+    else:
+        return 78000  # Capped subsidy
+
+# --- Suggested capacity based on average monthly usage ---
+def suggest_capacity(units):
+    if units <= 150:
+        return "1–2 kW"
+    elif 150 < units <= 300:
+        return "2–3 kW"
+    else:
+        return ">3 kW"
 
 # --- Top 10 states data ---
 states_data = {
@@ -70,10 +80,12 @@ st.caption("Includes PM Suryaghar + Top 10 State Schemes")
 st.markdown("---")
 
 capacity = st.slider("Rooftop System Size (kW)", 1.0, 10.0, 3.0, step=0.5)
+monthly_units = st.number_input("Average Monthly Electricity Consumption (Units)", min_value=0, max_value=1000, value=250)
 state = st.selectbox("Select Your State", list(states_data.keys()) + ["Others"])
 
 # --- Results ---
 central = central_subsidy(capacity)
+suggested = suggest_capacity(monthly_units)
 
 if state in states_data:
     state_info = states_data[state]
@@ -96,10 +108,16 @@ net_cost = total_cost - total_sub
 st.metric("📦 Estimated Total System Cost", f"₹{int(total_cost):,}")
 st.metric("🏷️ Net Payable After Subsidy", f"₹{int(net_cost):,}")
 
+# --- Suggested system size ---
+st.markdown("---")
+st.subheader("📐 Suggested Rooftop Solar Size")
+st.write(f"Based on your usage of {monthly_units} units/month → Suggested: **{suggested}**")
+
 # --- Disclaimer ---
 st.markdown("""
 ---
 ### ⚠️ Disclaimer:
 This dashboard is for **educational purposes only**. 
 Values are indicative. Always verify with your local DISCOM, MNRE, or registered installer.
+Refer: [PM Suryaghar Portal](https://pmsuryaghar.gov.in/#/)
 """)
